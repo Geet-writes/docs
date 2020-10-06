@@ -386,11 +386,15 @@ DROP VIEW
 
 ## Materialized views
 
-<span class="version-tag">New in v20.2:</span> CockroachDB supports [materialized views](https://en.wikipedia.org/wiki/Materialized_view). Materialized views and standard (i.e. "dematerialized") views share similar syntax for [creating](create-view.html), [showing](show-tables.html), [renaming](alter-view.html), and [dropping](drop-view.html). However, unlike standard views, materialized views store the results of their underlying queries.
+<span class="version-tag">New in v20.2:</span> CockroachDB supports [materialized views](https://en.wikipedia.org/wiki/Materialized_view). Materialized views are views that store the results of their underlying queries.
 
-When you [select](selection-queries.html) from a materialized view, the stored query data that is returned might be out-of-date. This contrasts with a standard view, which runs its underlying query every time it is used, returning the latest results. In order to get the latest results from a materialized view, you must [refresh the view](refresh.html), and then select from it.
+When you [select](selection-queries.html) from a materialized view, the stored query data that is returned might be out-of-date. This contrasts with a standard (i.e. "dematerialized") view, which runs its underlying query every time it is used, returning the latest results. In order to get the latest results from a materialized view, you must [refresh the view](refresh.html), and then select from it.
+
+Because materialized views store query results, they offer better performance than standard views, at the expense of the additional storage required to store query results and the guarantee that the results are up-to-date.
 
 ### Usage
+
+Materialized views and standard views share similar syntax for [creating](create-view.html), [showing](show-tables.html), [renaming](alter-view.html), and [dropping](drop-view.html).
 
 To create a materialized view, use a [`CREATE MATERIALIZED VIEW`](create-view.html) statement.
 
